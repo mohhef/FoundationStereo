@@ -89,6 +89,7 @@ if __name__=="__main__":
       disp = model.run_hierachical(img0, img1, iters=args.valid_iters, test_mode=True, small_ratio=0.5)
   disp = padder.unpad(disp.float())
   disp = disp.data.cpu().numpy().reshape(H,W)
+  np.save(f'{args.out_dir}/disp.npy', disp.astype(np.float32))
   vis = vis_disparity(disp)
   vis = np.concatenate([img0_ori, vis], axis=1)
   imageio.imwrite(f'{args.out_dir}/vis.png', vis)
@@ -131,4 +132,3 @@ if __name__=="__main__":
     vis.get_render_option().background_color = np.array([0.5, 0.5, 0.5])
     vis.run()
     vis.destroy_window()
-
